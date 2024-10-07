@@ -51,7 +51,7 @@ if [ "$(docker ps -q -f name=browser)" ]; then
     show "The Chromium Docker container is already running."
 else
     show "Running Chromium Docker Container..."
-    docker run -d --name browser -e TITLE=DuongDUc -e DISPLAY=:1 -e PUID=0 -e PGID=0 -e CUSTOM_USER="$USERNAME" -e PASSWORD="$PASSWORD" -e LANGUAGE=en_US.UTF-8 -v "$HOME/chromium/config:/config" -p 3000:3000 -p 3001:3001 --shm-size="1gb" --restart unless-stopped lscr.io/linuxserver/chromium:latest
+    docker run --security-opt seccomp=unconfined -d --name browser -e TITLE=DuongDUc -e DISPLAY=:1 -e PUID=0 -e PGID=0 -e CUSTOM_USER="$USERNAME" -e PASSWORD="$PASSWORD" -e LANGUAGE=en_US.UTF-8 -v "$HOME/chromium/config:/config" -p 3000:3000 -p 3001:3001 --shm-size="1gb" --restart unless-stopped lscr.io/linuxserver/chromium:latest
     if [ $? -eq 0 ]; then
         show "Chromium Docker container started successfully."
     else
